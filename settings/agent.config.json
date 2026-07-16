@@ -1,0 +1,11 @@
+{
+  "agent_name": "Pépite",
+  "mode": "vps",
+  "primary_goal": "increase_traffic_and_generate_leads",
+  "traffic_goal_2_months": 100,
+  "lead_goal_2_months": 5,
+  "default_language": "fr",
+  "publication_mode": "automatic",
+  "database": "supabase",
+  "preferred_llm": "claude-sonnet-5"
+}

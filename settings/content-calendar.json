@@ -1,0 +1,17 @@
+{
+  "cadence": "weekly",
+  "content_types": [
+    "seo_article",
+    "landing_page",
+    "case_study",
+    "email",
+    "social_post"
+  ],
+  "default_status": "publish_automatically",
+  "topics_source": [
+    "seo_opportunities",
+    "trend_research",
+    "competitor_analysis",
+    "crm_insights"
+  ]
+}

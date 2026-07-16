@@ -1,0 +1,10 @@
+{
+  "analytics": ["google_analytics_4"],
+  "seo": ["google_search_console", "semrush", "dataforseo"],
+  "database": ["supabase"],
+  "code_repository": ["github"],
+  "crm": ["custom_crm_or_configured_provider"],
+  "website": ["custom_website_access"],
+  "cms": ["optional_custom_cms"],
+  "status_note": "Aucun repo GitHub cible n'est configuré pour le moment (variables GITHUB_OWNER / GITHUB_REPO à définir sur le VPS avant toute publication réelle)."
+}

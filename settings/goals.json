@@ -1,0 +1,12 @@
+{
+  "period": "2_months",
+  "traffic_goal": 100,
+  "qualified_leads_goal": 5,
+  "secondary_goals": [
+    "improve_seo_ranking",
+    "create_new_landing_pages",
+    "optimize_conversion_rate",
+    "publish_marketing_content_automatically",
+    "identify_growth_initiatives"
+  ]
+}

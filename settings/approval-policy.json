@@ -1,0 +1,19 @@
+{
+  "default_policy": "automatic",
+  "require_approval_for": [],
+  "allowed_without_approval": [
+    "publish_content",
+    "create_landing_page",
+    "modify_landing_page",
+    "commit_to_github",
+    "push_to_github",
+    "update_supabase",
+    "create_or_update_crm_lead"
+  ],
+  "safety_rules": [
+    "never_commit_secrets",
+    "never_delete_large_content_without_clear_reason",
+    "always_log_major_actions_to_supabase",
+    "test_scripts_individually_before_automation"
+  ]
+}

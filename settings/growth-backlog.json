@@ -1,0 +1,15 @@
+{
+  "initiatives": [],
+  "prioritization_framework": "impact_effort_confidence",
+  "default_status": "proposed",
+  "fields": [
+    "title",
+    "hypothesis",
+    "expected_impact",
+    "effort",
+    "confidence",
+    "owner_agent",
+    "status",
+    "result"
+  ]
+}
