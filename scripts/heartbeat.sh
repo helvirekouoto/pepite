@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 # Heartbeat autonome de Pépite pour le site "Cadeau Malin".
-# Une itération : repérer une tendance cadeau non encore couverte, rédiger un
-# court article, publier (commit+push direct), journaliser dans Supabase.
+# Une itération : audit de l'existant, veille tendances réelle (WebSearch
+# multi-angles), recherche mots-clés/intention, détection d'opportunité,
+# anticipation saisonnière, puis rédaction d'un article SEO + fiche produit
+# dédiée, publication (commit+push direct) et journalisation complète dans
+# Supabase (y compris le raisonnement, pas juste le résultat).
 # Lancé par crontab système (survit aux redémarrages de session Claude Code).
 
 set -euo pipefail
@@ -13,14 +16,29 @@ LOG_DIR="/home/agent/pepite/logs"
 mkdir -p "$LOG_DIR"
 LOG_FILE="$LOG_DIR/heartbeat-$(date +%Y%m%d-%H%M%S).log"
 
-PROMPT='Tu es Pépite (voir CLAUDE.md). Exécute UNE itération courte du heartbeat trend->contenu pour le site "Cadeau Malin" (site/) :
-1. Vérifie dans Supabase (table content_assets et seo_opportunities, projet vbazcwxpqqnygairexcf) quels sujets/mots-clés sont déjà couverts.
-2. Cherche via WebSearch UNE tendance cadeau réelle et actuelle qui ne recoupe PAS un sujet déjà couvert (ne jamais inventer une tendance).
-3. Rédige un court article SEO (compétence redaction-seo-longue-traine) dans site/blog/, ajoute-le à site/blog/index.html, et si pertinent une carte produit sur site/index.html.
-4. Utilise un lien de redirection Amazon.fr réel (https://www.amazon.fr/s?k=...), sans jamais inventer un partenariat affilié qui n existe pas.
-5. Committe et pousse directement sur main (git local, SSH deja configure) - un commit atomique et descriptif.
-6. Journalise dans Supabase (content_assets, seo_opportunities, agent_logs) avec agent=trend-agent puis agent=content-agent.
-7. Reste concis. Si WebSearch ne trouve rien de nouveau de solide, ne publie rien et journalise juste un agent_logs "nothing_new" plutot que de forcer un contenu faible.'
+PROMPT='Tu es Pépite (voir CLAUDE.md). Exécute UNE itération complète du heartbeat trend->contenu pour le site "Cadeau Malin" (site/). Ne saute aucune étape danalyse - une seule recherche superficielle ne suffit pas :
+
+1. AUDIT EXISTANT - Charge veille-tendances. Vérifie dans Supabase (content_assets et seo_opportunities, projet vbazcwxpqqnygairexcf) quels sujets/mots-clés/produits sont déjà couverts, pour ne rien répéter.
+
+2. VEILLE TENDANCES REELLE - Charge veille-tendances. Fais PLUSIEURS requêtes WebSearch (au moins 3, sous des angles différents : nouveautés produits, viralité réseaux sociaux, saisonnalité/occasions à venir compte tenu de la date du jour) pour repérer des signaux de tendance cadeaux réels et récents. Ne jamais inventer une tendance ou un produit non trouvé par la recherche.
+
+3. RECHERCHE MOTS-CLES ET INTENTION - Charge recherche-mots-cles-intention. Pour chaque tendance repérée à létape 2, évalue lintention de recherche probable (informationnelle vs transactionnelle) et le potentiel relatif, même en labsence doutil de volume dédié (raisonnement qualitatif explicite, pas une estimation inventée présentée comme un chiffre).
+
+4. DETECTION OPPORTUNITES - Charge detection-opportunites-contenu. Croise les tendances (étape 2), les mots-clés priorisés (étape 3) et lexistant (étape 1) pour ne retenir QUE les 1 à 2 opportunités les plus pertinentes et non redondantes.
+
+5. ANTICIPATION - Charge anticipation-croissance. Ne te limite pas à ce qui est déjà tendance aujourdhui : réfléchis explicitement à ce qui va probablement être recherché dans les prochaines semaines (occasion saisonnière proche, rentrée, fêtes, événement prévisible) compte tenu de la date du jour, et priorise en conséquence si pertinent.
+
+6. REDACTION ARTICLE - Charge redaction-seo-longue-traine. Rédige un article SEO pour la meilleure opportunité retenue, dans site/blog/. Ajoute-le à site/blog/index.html.
+
+6bis. FICHE PRODUIT - Cette étape est OBLIGATOIRE à chaque itération qui publie, jamais optionnelle. Crée en plus une fiche produit dédiée dans site/produits/<slug>.html (nouveau dossier si absent), sur le modèle dune vraie page produit e-commerce : titre précis du produit, pourquoi il est tendance maintenant (1-2 phrases factuelles), 3-4 points clés, CTA vers le lien Amazon.fr. Ajoute un lien vers cette fiche produit depuis larticle de blog ET depuis la page catégorie concernée (site/categories/*.html), et une carte produit sur site/index.html si la tendance est forte.
+
+7. LIEN PRODUIT - Utilise un lien de redirection Amazon.fr réel (https://www.amazon.fr/s?k=...) sur la fiche produit ET dans larticle, sans jamais inventer un partenariat affilié qui nexiste pas.
+
+8. PUBLICATION - Committe et pousse directement sur main (git local, SSH déjà configuré) - un commit atomique et descriptif.
+
+9. JOURNALISATION COMPLETE - Journalise dans Supabase : le raisonnement (pas juste le résultat) dans growth_experiments (hypothèse = pourquoi cette tendance/ce timing, résultat attendu), les mots-clés dans seo_opportunities, larticle ET la fiche produit dans content_assets (deux lignes distinctes, type=seo_article et type=fiche_produit), un résumé dans agent_logs (agent=trend-agent pour lanalyse, agent=content-agent pour la rédaction).
+
+10. Si après une vraie analyse (étapes 1 à 5) rien de solide et non redondant ne ressort, ne publie rien et journalise un agent_logs "nothing_new" avec le raisonnement qui a mené à cette conclusion - mais larrêt prématuré après une seule recherche nest jamais acceptable.'
 
 claude -p "$PROMPT" --dangerously-skip-permissions >> "$LOG_FILE" 2>&1
 
