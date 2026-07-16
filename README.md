@@ -8,7 +8,7 @@ Objectifs initiaux : 100+ visiteurs en 2 mois, 5 leads qualifiés, amélioration
 
 Construit :
 - `CLAUDE.md` — identité et instructions système de Pépite.
-- `.claude/skills/` — les 7 compétences : `creation-site-web`, `analyse-performance`, `veille-tendances`, `anticipation-croissance`, `redaction-contenu-marketing`, `publication-automatique`, `optimisation-conversion`.
+- `.claude/skills/` — 34 compétences réparties sur les 9 sous-agents (3 à 4 chacun, voir le détail dans chaque fichier `agents/*.md` → « Compétences associées »).
 - `agents/` — les 9 rôles de sous-agents (documents de rôle, pas des processus séparés), dont `design-agent.md` (création de site à partir d'une idée de business).
 - `site-template/` — gabarit de site statique (HTML/CSS sans dépendance) servant de base à toute création de site.
 - `settings/` — `agent.config.json`, `goals.json`, `integrations.json`, `approval-policy.json`, `content-calendar.json`, `growth-backlog.json`.

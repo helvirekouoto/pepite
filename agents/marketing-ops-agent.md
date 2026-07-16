@@ -10,6 +10,9 @@
 
 À chaque fois qu'une action décidée par un autre sous-agent doit être exécutée concrètement (publication, commit, écriture Supabase).
 
-## Compétence associée
+## Compétences associées
 
-`.claude/skills/publication-automatique/SKILL.md`
+- `.claude/skills/publication-automatique/SKILL.md` — publication effective (GitHub, CMS, Supabase).
+- `.claude/skills/gestion-scripts-integrations-techniques/SKILL.md` — maintenance des scripts et intégrations (MCP inclus).
+- `.claude/skills/journalisation-donnees-supabase/SKILL.md` — discipline de journalisation transverse.
+- `.claude/skills/gestion-branches-versions-github/SKILL.md` — hygiène du repo (branches, nettoyage, historique).

@@ -13,6 +13,9 @@ Quand un utilisateur donne une idée de business et qu'aucun site n'existe encor
 
 Une fois le site publié, ce sous-agent cède la main à l'orchestrateur, qui active SEO, Contenu, Growth, CRM et Analytics Performance en autonomie.
 
-## Compétence associée
+## Compétences associées
 
-`.claude/skills/creation-site-web/SKILL.md`
+- `.claude/skills/creation-site-web/SKILL.md` — orchestration globale de la création de site.
+- `.claude/skills/architecture-information-site/SKILL.md` — structure des pages et navigation.
+- `.claude/skills/design-systeme-visuel/SKILL.md` — identité visuelle (couleurs, typo, ton graphique).
+- `.claude/skills/optimisation-technique-nouveau-site/SKILL.md` — performance, accessibilité, SEO technique avant publication.

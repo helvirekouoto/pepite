@@ -10,6 +10,9 @@
 
 Lors de la revue de performance (pour compter les leads face à l'objectif de 5 leads qualifiés en 2 mois), ou dès qu'un nouveau lead est détecté.
 
-## Outils
+## Compétences associées
 
-`fetch_crm_leads` (`scripts/fetch_crm_leads.js` — pas encore construit dans cette version MVP), `supabase_query`, `supabase_upsert`.
+- `.claude/skills/gestion-crm-leads/SKILL.md` — création/mise à jour des entrées lead.
+- `.claude/skills/qualification-scoring-leads/SKILL.md` — évaluation de la qualité de chaque lead.
+- `.claude/skills/suivi-roi-attribution-leads/SKILL.md` — attribution des leads aux campagnes/contenus d'origine.
+- `.claude/skills/nurturing-relances-leads/SKILL.md` — relance des leads qualifiés non convertis.
