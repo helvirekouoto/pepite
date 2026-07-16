@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>[Nom de l'entreprise] — [Promesse principale en une phrase]</title>
+  <meta name="description" content="[Description SEO en une phrase : pour qui, quel problème, quel bénéfice.]" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="logo" href="#top">[Nom de l'entreprise]</a>
+      <nav aria-label="Navigation principale">
+        <a href="#offre">Offre</a>
+        <a href="#preuve">Résultats</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a class="btn btn-primary btn-small" href="#contact">[CTA principal]</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap">
+        <h1>[Proposition de valeur unique — ce que vous faites, pour qui, avec quel bénéfice]</h1>
+        <p class="lede">[Une ou deux phrases qui précisent la promesse : le problème résolu et le résultat concret obtenu.]</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#contact">[CTA principal]</a>
+          <a class="btn btn-ghost" href="#offre">En savoir plus</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="offre" class="section">
+      <div class="wrap">
+        <h2>[Ce que vous proposez]</h2>
+        <div class="grid-3">
+          <article class="card">
+            <h3>[Bénéfice 1]</h3>
+            <p>[Explication concrète, orientée résultat pour le client — pas une liste de fonctionnalités.]</p>
+          </article>
+          <article class="card">
+            <h3>[Bénéfice 2]</h3>
+            <p>[Explication concrète, orientée résultat pour le client.]</p>
+          </article>
+          <article class="card">
+            <h3>[Bénéfice 3]</h3>
+            <p>[Explication concrète, orientée résultat pour le client.]</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="preuve" class="section alt">
+      <div class="wrap">
+        <h2>[Preuve sociale / résultats]</h2>
+        <blockquote class="quote">
+          <p>« [Témoignage client réel — ne jamais inventer un témoignage ou un chiffre non fourni.] »</p>
+          <cite>[Nom, rôle — placeholder si non fourni]</cite>
+        </blockquote>
+      </div>
+    </section>
+
+    <section id="contact" class="section cta-section">
+      <div class="wrap">
+        <h2>[Appel à l'action final — ce que le visiteur gagne à agir maintenant]</h2>
+        <form class="lead-form" method="post" action="#">
+          <label for="name">Nom</label>
+          <input id="name" name="name" type="text" autocomplete="name" required />
+
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" autocomplete="email" required />
+
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="3"></textarea>
+
+          <button class="btn btn-primary" type="submit">[CTA du formulaire]</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>© <span id="year"></span> [Nom de l'entreprise]. [Mentions légales / contact — à compléter.]</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

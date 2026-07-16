@@ -1,0 +1,245 @@
+/* Gabarit de design Pépite — à adapter (couleurs, typo, textes) par idée de business.
+   Principes : hiérarchie claire, un accent, espace blanc généreux, mobile-first,
+   contrastes AA, zéro dépendance. */
+
+:root {
+  --color-bg: #ffffff;
+  --color-bg-alt: #f7f7f8;
+  --color-text: #17181a;
+  --color-text-muted: #55585e;
+  --color-accent: #2455ff;
+  --color-accent-contrast: #ffffff;
+  --color-border: #e4e5e8;
+
+  --font-sans: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --radius: 10px;
+  --max-width: 1080px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #121214;
+    --color-bg-alt: #1a1b1e;
+    --color-text: #f2f2f3;
+    --color-text-muted: #a8abb2;
+    --color-accent: #6d8dff;
+    --color-accent-contrast: #0b0d12;
+    --color-border: #2b2d31;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  background: var(--color-bg);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+h1, h2, h3 {
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+h1 { font-size: clamp(2rem, 4.5vw, 3.25rem); margin: 0 0 1rem; }
+h2 { font-size: clamp(1.5rem, 3vw, 2.1rem); margin: 0 0 1.5rem; }
+h3 { font-size: 1.15rem; margin: 0 0 0.5rem; }
+
+p { margin: 0 0 1rem; }
+
+a { color: var(--color-accent); }
+
+.site-header {
+  position: sticky;
+  top: 0;
+  background: color-mix(in srgb, var(--color-bg) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--color-border);
+  z-index: 10;
+}
+
+.site-header .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.site-header nav {
+  display: none;
+  gap: 1.5rem;
+}
+
+.site-header nav a {
+  color: var(--color-text-muted);
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.site-header nav a:hover { color: var(--color-text); }
+
+@media (min-width: 720px) {
+  .site-header nav { display: flex; }
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.8rem 1.4rem;
+  border-radius: var(--radius);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+}
+
+.btn-primary:hover { opacity: 0.9; }
+
+.btn-ghost {
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+
+.btn-ghost:hover { border-color: var(--color-text-muted); }
+
+.btn-small {
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+}
+
+.hero {
+  padding: clamp(3rem, 8vw, 7rem) 0 clamp(2.5rem, 6vw, 4rem);
+  text-align: center;
+}
+
+.hero .lede {
+  max-width: 640px;
+  margin: 0 auto 2rem;
+  color: var(--color-text-muted);
+  font-size: 1.15rem;
+}
+
+.cta-row {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.section {
+  padding: clamp(3rem, 7vw, 5rem) 0;
+}
+
+.section.alt {
+  background: var(--color-bg-alt);
+}
+
+.section h2 {
+  text-align: center;
+}
+
+.grid-3 {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 720px) {
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+}
+
+.card {
+  padding: 1.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-bg);
+}
+
+.card p { color: var(--color-text-muted); margin: 0; }
+
+.quote {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.quote p { font-style: italic; }
+.quote cite { color: var(--color-text-muted); font-style: normal; }
+
+.cta-section { text-align: center; }
+
+.lead-form {
+  max-width: 420px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  text-align: left;
+}
+
+.lead-form label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-top: 0.6rem;
+}
+
+.lead-form input,
+.lead-form textarea {
+  padding: 0.7rem 0.9rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  font: inherit;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.lead-form input:focus,
+.lead-form textarea:focus,
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.lead-form button {
+  margin-top: 1.25rem;
+}
+
+.site-footer {
+  border-top: 1px solid var(--color-border);
+  padding: 2rem 0;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  text-align: center;
+}

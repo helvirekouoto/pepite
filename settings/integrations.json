@@ -6,5 +6,5 @@
   "crm": ["custom_crm_or_configured_provider"],
   "website": ["custom_website_access"],
   "cms": ["optional_custom_cms"],
-  "status_note": "Aucun repo GitHub cible n'est configuré pour le moment (variables GITHUB_OWNER / GITHUB_REPO à définir sur le VPS avant toute publication réelle)."
+  "status_note": "Repo GitHub cible configuré : helvirekouoto/pepite (push/merge via clé SSH du VPS, aucun GITHUB_TOKEN requis pour le flux direct_push). GA4/Search Console/CRM restent à configurer."
 }

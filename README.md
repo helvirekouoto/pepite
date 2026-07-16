@@ -8,18 +8,19 @@ Objectifs initiaux : 100+ visiteurs en 2 mois, 5 leads qualifiés, amélioration
 
 Construit :
 - `CLAUDE.md` — identité et instructions système de Pépite.
-- `.claude/skills/` — les 6 compétences : `analyse-performance`, `veille-tendances`, `anticipation-croissance`, `redaction-contenu-marketing`, `publication-automatique`, `optimisation-conversion`.
-- `agents/` — les 8 rôles de sous-agents (documents de rôle, pas des processus séparés).
+- `.claude/skills/` — les 7 compétences : `creation-site-web`, `analyse-performance`, `veille-tendances`, `anticipation-croissance`, `redaction-contenu-marketing`, `publication-automatique`, `optimisation-conversion`.
+- `agents/` — les 9 rôles de sous-agents (documents de rôle, pas des processus séparés), dont `design-agent.md` (création de site à partir d'une idée de business).
+- `site-template/` — gabarit de site statique (HTML/CSS sans dépendance) servant de base à toute création de site.
 - `settings/` — `agent.config.json`, `goals.json`, `integrations.json`, `approval-policy.json`, `content-calendar.json`, `growth-backlog.json`.
-- `commands/daily-cmo-review.md` — revue marketing quotidienne.
-- `scripts/` — `supabase_query.js`, `supabase_upsert.js`, `github_create_branch.js`, `github_commit_changes.js`, `github_open_pr_or_push.js`, `fetch_ga4_report.js`, et le socle partagé `scripts/lib/cli.js`.
+- `commands/` — `daily-cmo-review.md` (revue marketing quotidienne), `create-website-from-idea.md` (site complet à partir d'une idée de business, puis boucle de croissance autonome).
+- `scripts/` — `supabase_query.js`, `supabase_upsert.js`, `github_create_branch.js`, `github_commit_changes.js`, `github_open_pr_or_push.js` (publication via `git`/SSH local, sans token GitHub), `fetch_ga4_report.js`, et le socle partagé `scripts/lib/cli.js`.
 - `.mcp.json` — déclaration des MCP Supabase et GitHub (à activer si ces serveurs sont installés sur le VPS ; sinon les scripts `scripts/*.js` servent de repli).
 
 Pas encore construits (à ajouter progressivement, voir section 13 de la spécification d'origine) :
 - Scripts : `fetch_gsc_report.js`, `fetch_crm_leads.js`, `dataforseo_keyword_research.js`, `semrush_domain_report.js`, `web_trend_search.js`, `publish_content.js`.
-- Commandes : `weekly-growth-plan.md`, `run-seo-audit.md`, `create-landing-page.md`, `publish-marketing-content.md`, `launch-growth-experiment.md`.
+- Commandes : `weekly-growth-plan.md`, `run-seo-audit.md`, `publish-marketing-content.md`, `launch-growth-experiment.md`.
 
-Aucun repo GitHub cible n'est encore configuré (`GITHUB_OWNER` / `GITHUB_REPO` à définir sur le VPS).
+Repo GitHub cible configuré : `helvirekouoto/pepite`, remote `origin` en SSH (voir `settings/integrations.json`).
 
 Un projet Supabase dédié à Pépite a été créé (organisation `helvire`, région `eu-west-1`) :
 - Project ref : `vbazcwxpqqnygairexcf`
