@@ -32,6 +32,8 @@ PROMPT='Tu es Pépite (voir CLAUDE.md). Exécute UNE itération complète du hea
 
 6bis. FICHE PRODUIT - Cette étape est OBLIGATOIRE à chaque itération qui publie, jamais optionnelle. Crée en plus une fiche produit dédiée dans site/produits/<slug>.html (nouveau dossier si absent), sur le modèle dune vraie page produit e-commerce : titre précis du produit, pourquoi il est tendance maintenant (1-2 phrases factuelles), 3-4 points clés, CTA vers le lien Amazon.fr. Ajoute un lien vers cette fiche produit depuis larticle de blog ET depuis la page catégorie concernée (site/categories/*.html), et une carte produit sur site/index.html si la tendance est forte.
 
+6ter. ICONE VISUELLE - Obligatoire, jamais optionnelle. Chaque nouvelle carte produit (index.html, catégorie, fiche produit) doit avoir une icône SVG en ligne cohérente avec le reste du site : class="product-icon", viewBox="0 0 24 24", fill="none", stroke="currentColor", stroke-width="1.5", inspirée du produit (regarde les icônes déjà présentes dans site/index.html et site/categories/*.html comme modèle de style). Ne jamais utiliser une image externe ou hotlinkée (aucune dépendance externe, aucun risque de lien mort ou de droit dauteur) - uniquement du SVG dessiné à la main, simple et minimal.
+
 7. LIEN PRODUIT - Utilise un lien de redirection Amazon.fr réel (https://www.amazon.fr/s?k=...) sur la fiche produit ET dans larticle, sans jamais inventer un partenariat affilié qui nexiste pas.
 
 8. PUBLICATION - Committe et pousse directement sur main (git local, SSH déjà configuré) - un commit atomique et descriptif.
