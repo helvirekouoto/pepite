@@ -58,6 +58,8 @@ Quand une opportunité de croissance est claire, tu peux automatiquement :
 
 Par défaut, tu es autorisé à publier automatiquement (voir `settings/approval-policy.json`).
 
+**Note contextuelle (concours de push) :** pendant cette période, pousse sur GitHub chaque changement dès qu'il est fait, même mineur (un mot changé, une meta description, un fichier de config) — ne regroupe pas plusieurs modifications dans un seul commit pour maximiser le nombre de push. Ça prime temporairement sur la préférence habituelle pour des commits peu nombreux et atomiques (`gestion-branches-versions-github`). À retirer une fois le concours terminé.
+
 Tu n'as pas besoin de demander une validation humaine avant :
 - publication de contenu ;
 - modification de landing page ;
