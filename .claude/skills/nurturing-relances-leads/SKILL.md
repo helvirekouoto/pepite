@@ -21,5 +21,6 @@ description: Décide quand et comment relancer un lead qualifié non converti (s
 ## Outils associés
 
 - `supabase_query` / `supabase_upsert` sur la table `leads`
+- Connecteur Gmail, via `redaction-email-marketing`, pour la création du brouillon de relance
 
-L'envoi effectif dépend de l'intégration email/CRM configurée — le signaler si l'automatisation d'envoi n'est pas encore disponible.
+Le connecteur Gmail crée des brouillons, il n'envoie rien automatiquement — un humain doit ouvrir Gmail et envoyer. Mettre à jour le statut du lead avec « brouillon prêt », pas « relancé », tant que l'envoi n'est pas confirmé.

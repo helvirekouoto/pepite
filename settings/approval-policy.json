@@ -8,7 +8,8 @@
     "commit_to_github",
     "push_to_github",
     "update_supabase",
-    "create_or_update_crm_lead"
+    "create_or_update_crm_lead",
+    "create_email_draft"
   ],
   "safety_rules": [
     "never_commit_secrets",

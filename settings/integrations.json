@@ -6,5 +6,7 @@
   "crm": ["custom_crm_or_configured_provider"],
   "website": ["custom_website_access"],
   "cms": ["optional_custom_cms"],
-  "status_note": "Repo GitHub cible configuré : helvirekouoto/pepite (push/merge via clé SSH du VPS, aucun GITHUB_TOKEN requis pour le flux direct_push). GA4/Search Console/CRM restent à configurer."
+  "email": ["gmail_connector"],
+  "browser_testing": ["playwright_mcp"],
+  "status_note": "Repo GitHub cible configuré : helvirekouoto/pepite (push/merge via clé SSH du VPS, aucun GITHUB_TOKEN requis pour le flux direct_push). Connecteur Gmail actif pour redaction-email-marketing/nurturing-relances-leads — création de brouillons uniquement (create_draft), aucun envoi automatique possible avec cet outil, un humain doit envoyer depuis Gmail. Plugin Playwright activé dans .claude/settings.json (nécessite un redémarrage de session pour charger le serveur MCP) — sert optimisation-technique-nouveau-site, tests-ab et analyse-concurrentielle (captures d'écran, vérif responsive). GA4 déjà branché ; Search Console/CRM/SEMrush/DataForSEO restent à configurer."
 }

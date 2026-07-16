@@ -22,5 +22,13 @@ description: Rédige des emails et séquences (bienvenue, nurturing, relance de 
 
 - `supabase_query` (`scripts/supabase_query.js`) — récupérer les données réelles du lead
 - `supabase_upsert` (`scripts/supabase_upsert.js`)
+- Connecteur Gmail (`mcp__claude_ai_Gmail__create_draft`) — créer le brouillon une fois le texte finalisé
 
-L'envoi effectif dépend de l'outil CRM/email configuré (`fetch_crm_leads` / intégration email — pas encore construits dans cette version MVP) ; le signaler si l'envoi automatisé n'est pas encore possible.
+## Limite importante : brouillon, pas envoi
+
+Le connecteur Gmail permet de **créer un brouillon** (`create_draft`), pas d'envoyer un email directement — il n'existe aucun outil d'envoi. Le comportement attendu est donc :
+
+1. Rédiger le contenu selon les étapes ci-dessus.
+2. Créer le brouillon via `create_draft` (objet, destinataire, corps).
+3. Journaliser dans Supabase que le brouillon a été créé et attend un envoi humain (`agent_logs`), sans jamais annoncer que l'email a été « envoyé ».
+4. Ne jamais présenter un brouillon comme un email déjà parti.
