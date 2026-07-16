@@ -1,18 +1,30 @@
 #!/usr/bin/env node
-// Ajoute ou modifie des fichiers dans le repository du site, sur une branche donnée.
-// Entrée (JSON, argv[2]): { repo?, owner?, branch, files: [{ path, content }], commitMessage }
-// Secrets attendus (VPS): GITHUB_TOKEN, GITHUB_OWNER, GITHUB_REPO
-//
-// Utilise l'API Git Data (blobs/tree/commit) pour committer plusieurs fichiers en un seul commit atomique.
+// Ajoute ou modifie des fichiers dans le repo Git local (VPS), sur une branche donnée,
+// puis committe. Le push se fait séparément via github_open_pr_or_push.js.
+// Entrée (JSON, argv[2]): { branch, files: [{ path, content }], commitMessage }
+// Aucun secret requis : opère sur le clone local (remote origin en SSH).
 
-require('dotenv').config();
-const { Octokit } = require('@octokit/rest');
-const { readInput, requireEnv, output, fail } = require('./lib/cli');
+const fs = require('fs');
+const path = require('path');
+const { execFileSync } = require('child_process');
+const { readInput, output, fail } = require('./lib/cli');
+
+const REPO_DIR = path.resolve(__dirname, '..');
+
+function git(args) {
+  return execFileSync('git', args, { cwd: REPO_DIR, encoding: 'utf8' }).trim();
+}
+
+function assertInsideRepo(filePath) {
+  const resolved = path.resolve(REPO_DIR, filePath);
+  if (!resolved.startsWith(REPO_DIR + path.sep)) {
+    fail(new Error(`Chemin de fichier hors du repo refusé: ${filePath}`));
+  }
+  return resolved;
+}
 
 async function main() {
   const input = readInput();
-  const owner = input.owner || requireEnv('GITHUB_OWNER');
-  const repo = input.repo || requireEnv('GITHUB_REPO');
   const branch = input.branch;
   const files = input.files;
   const commitMessage = input.commitMessage;
@@ -21,49 +33,21 @@ async function main() {
   if (!files || !files.length) fail(new Error('Paramètre requis manquant: files (liste de { path, content })'));
   if (!commitMessage) fail(new Error('Paramètre requis manquant: commitMessage'));
 
-  const token = requireEnv('GITHUB_TOKEN');
-  const octokit = new Octokit({ auth: token });
+  git(['checkout', branch]);
 
-  const { data: refData } = await octokit.git.getRef({ owner, repo, ref: `heads/${branch}` });
-  const latestCommitSha = refData.object.sha;
+  for (const file of files) {
+    const resolved = assertInsideRepo(file.path);
+    fs.mkdirSync(path.dirname(resolved), { recursive: true });
+    fs.writeFileSync(resolved, file.content, 'utf8');
+  }
 
-  const { data: latestCommit } = await octokit.git.getCommit({ owner, repo, commit_sha: latestCommitSha });
-  const baseTreeSha = latestCommit.tree.sha;
-
-  const blobs = await Promise.all(
-    files.map(async (file) => {
-      const { data: blob } = await octokit.git.createBlob({
-        owner,
-        repo,
-        content: Buffer.from(file.content, 'utf8').toString('base64'),
-        encoding: 'base64',
-      });
-      return { path: file.path, sha: blob.sha };
-    })
-  );
-
-  const { data: newTree } = await octokit.git.createTree({
-    owner,
-    repo,
-    base_tree: baseTreeSha,
-    tree: blobs.map((b) => ({ path: b.path, mode: '100644', type: 'blob', sha: b.sha })),
-  });
-
-  const { data: newCommit } = await octokit.git.createCommit({
-    owner,
-    repo,
-    message: commitMessage,
-    tree: newTree.sha,
-    parents: [latestCommitSha],
-  });
-
-  await octokit.git.updateRef({ owner, repo, ref: `heads/${branch}`, sha: newCommit.sha });
+  git(['add', ...files.map((f) => f.path)]);
+  git(['commit', '-m', commitMessage]);
+  const commitSha = git(['rev-parse', 'HEAD']);
 
   output({
-    owner,
-    repo,
     branch,
-    commitSha: newCommit.sha,
+    commitSha,
     filesChanged: files.map((f) => f.path),
   });
 }

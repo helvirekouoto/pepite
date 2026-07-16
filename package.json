@@ -7,7 +7,6 @@
     "check": "for f in scripts/lib/cli.js scripts/supabase_query.js scripts/supabase_upsert.js scripts/github_create_branch.js scripts/github_commit_changes.js scripts/github_open_pr_or_push.js scripts/fetch_ga4_report.js; do node --check \"$f\" || exit 1; done && echo OK"
   },
   "dependencies": {
-    "@octokit/rest": "^21.0.2",
     "@supabase/supabase-js": "^2.45.4",
     "axios": "^1.7.7",
     "dotenv": "^16.4.5",
