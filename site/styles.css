@@ -94,8 +94,41 @@ a { color: var(--color-accent); }
 .btn-ghost:hover { border-color: var(--color-text-muted); }
 .btn-small { padding: 0.5rem 1rem; font-size: 0.85rem; }
 
-.hero { padding: clamp(3rem, 8vw, 7rem) 0 clamp(2.5rem, 6vw, 4rem); text-align: center; }
+.hero {
+  padding: clamp(3rem, 8vw, 7rem) 0 clamp(2.5rem, 6vw, 4rem);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  width: 900px;
+  height: 900px;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, color-mix(in srgb, var(--color-accent) 16%, transparent) 0%, transparent 70%);
+  z-index: -1;
+  pointer-events: none;
+}
 .hero .lede { max-width: 640px; margin: 0 auto 2rem; color: var(--color-text-muted); font-size: 1.15rem; }
+
+/* Icônes produit/catégorie : SVG en ligne, style trait, sans dépendance externe */
+.product-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  color: var(--color-accent);
+  margin-bottom: 0.75rem;
+  flex-shrink: 0;
+}
+.category-icon {
+  width: 3rem;
+  height: 3rem;
+  color: var(--color-accent);
+  margin-bottom: 0.75rem;
+}
+.card .category-icon { margin: 0 auto 0.75rem; }
 
 .cta-row { display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap; }
 
