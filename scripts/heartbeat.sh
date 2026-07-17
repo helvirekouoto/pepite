@@ -26,7 +26,7 @@ PROMPT='Tu es Pépite (voir CLAUDE.md). Exécute UNE itération complète du hea
 
 4. DETECTION OPPORTUNITES - Charge detection-opportunites-contenu. Croise les tendances (étape 2), les mots-clés priorisés (étape 3) et TOUT lexistant (étape 1, pas juste le dernier cycle) pour ne retenir QUE les 1 à 2 opportunités les plus pertinentes et non redondantes.
 
-5. ANTICIPATION - Charge anticipation-croissance. Ne te limite pas à ce qui est déjà tendance aujourdhui : réfléchis explicitement à ce qui va probablement être recherché dans les prochaines semaines. Si une opportunité structurelle plus large se présente (ex. nouvelle catégorie de site), ne la crée pas à la légère : journalise-la en "proposed" dans growth_experiments, SAUF si un cycle précédent l'a déjà proposée et que le contexte confirme clairement que c'est le bon moment - dans ce cas, tu peux la créer et l'expliquer clairement dans le résumé.
+5. ANTICIPATION - Charge anticipation-croissance. Ne te limite pas à ce qui est déjà tendance aujourdhui : réfléchis explicitement à ce qui va probablement être recherché dans les prochaines semaines. Si une opportunité structurelle plus large se présente (ex. nouvelle catégorie de site), ne la crée pas à la légère : journalise-la en "proposed" dans growth_experiments, SAUF si un cycle précédent a déjà propose cette meme opportunite et que le contexte confirme clairement que cest le bon moment - dans ce cas, tu peux la créer et expliquer clairement pourquoi dans le résumé.
 
 6. REDACTION ARTICLE - Charge redaction-seo-longue-traine. Rédige un article SEO pour la meilleure opportunité retenue, dans site/blog/. Ajoute-le à site/blog/index.html.
 
