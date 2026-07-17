@@ -1,5 +1,5 @@
 ---
-stepsCompleted: [step-01, step-02]
+stepsCompleted: [step-01, step-02, step-03]
 inputDocuments: ['_bmad-output/planning-artifacts/prds/prd-pepite-2026-07-17/prd.md', '_bmad-output/planning-artifacts/architecture/architecture-pepite-2026-07-17/ARCHITECTURE-SPINE.md']
 ---
 
