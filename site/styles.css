@@ -138,13 +138,16 @@ a { color: var(--color-accent); }
 
 .grid-3 { display: grid; gap: 1.25rem; grid-template-columns: 1fr; }
 .grid-4 { display: grid; gap: 1.25rem; grid-template-columns: 1fr; }
+.grid-6 { display: grid; gap: 1.25rem; grid-template-columns: 1fr; }
 
 @media (min-width: 720px) {
   .grid-3 { grid-template-columns: repeat(3, 1fr); }
   .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .grid-6 { grid-template-columns: repeat(3, 1fr); }
 }
 @media (min-width: 960px) {
   .grid-4 { grid-template-columns: repeat(4, 1fr); }
+  .grid-6 { grid-template-columns: repeat(6, 1fr); }
 }
 
 .card {
