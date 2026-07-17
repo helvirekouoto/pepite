@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Trouvez le cadeau idéal en 30 secondes — Cadeau Malin</title>
+  <meta name="description" content="Répondez à 3 questions rapides et on vous oriente vers la meilleure catégorie de cadeau, selon la personne, le budget et l'occasion." />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .quiz-wrap { max-width: 640px; margin: 0 auto; }
+    .quiz-step { display: none; }
+    .quiz-step.active { display: block; }
+    .quiz-progress { display: flex; gap: 0.4rem; justify-content: center; margin-bottom: 2rem; }
+    .quiz-progress .dot { width: 0.5rem; height: 0.5rem; border-radius: 999px; background: var(--color-border); }
+    .quiz-progress .dot.done { background: var(--color-accent); }
+    .quiz-options { display: grid; gap: 0.75rem; grid-template-columns: 1fr; margin: 1.5rem 0; }
+    @media (min-width: 480px) { .quiz-options { grid-template-columns: 1fr 1fr; } }
+    .quiz-option {
+      display: block;
+      padding: 1rem 1.25rem;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      background: var(--color-bg);
+      cursor: pointer;
+      text-align: left;
+      font: inherit;
+      color: var(--color-text);
+    }
+    .quiz-option:hover { border-color: var(--color-accent); }
+    .quiz-option.selected { border-color: var(--color-accent); background: color-mix(in srgb, var(--color-accent) 8%, transparent); }
+    .quiz-result {
+      text-align: center;
+      padding: 2rem;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      background: var(--color-bg-alt);
+    }
+    .quiz-back { background: none; border: none; color: var(--color-text-muted); font-size: 0.85rem; cursor: pointer; margin-bottom: 1rem; padding: 0; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="logo" href="index.html#top">🎁 Cadeau Malin</a>
+      <nav aria-label="Navigation principale">
+        <a href="categories/high-tech.html">High-Tech</a>
+        <a href="categories/bien-etre.html">Bien-être</a>
+        <a href="categories/maison-deco.html">Déco</a>
+        <a href="categories/enfants.html">Enfants</a>
+        <a href="categories/cafe-the.html">Café &amp; Thé</a>
+        <a href="categories/gaming.html">Gaming</a>
+        <a href="blog/index.html">Blog</a>
+      </nav>
+      <a class="btn btn-primary btn-small" href="index.html#alerte-tendance">Recevoir les tendances</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <p class="breadcrumb"><a href="index.html">Accueil</a> / Trouver le cadeau idéal</p>
+        <h1>Trouvez le cadeau idéal en 30 secondes</h1>
+        <p class="lede">3 questions rapides, une recommandation claire — sans avoir à parcourir tout le site.</p>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="wrap quiz-wrap">
+        <div class="quiz-progress" id="quiz-progress">
+          <span class="dot" data-step="1"></span>
+          <span class="dot" data-step="2"></span>
+          <span class="dot" data-step="3"></span>
+        </div>
+
+        <div class="quiz-step active" data-step="1">
+          <h2>Pour qui est ce cadeau ?</h2>
+          <div class="quiz-options" data-question="recipient">
+            <button class="quiz-option" data-value="enfant">Un enfant</button>
+            <button class="quiz-option" data-value="adulte">Un adulte</button>
+            <button class="quiz-option" data-value="peu-importe">Peu importe</button>
+          </div>
+        </div>
+
+        <div class="quiz-step" data-step="2">
+          <button class="quiz-back" data-back>&larr; Retour</button>
+          <h2>Quel est le budget ?</h2>
+          <div class="quiz-options" data-question="budget">
+            <button class="quiz-option" data-value="petit">Moins de 20€</button>
+            <button class="quiz-option" data-value="moyen">20€ à 50€</button>
+            <button class="quiz-option" data-value="grand">50€ à 100€</button>
+            <button class="quiz-option" data-value="tres-grand">Plus de 100€</button>
+          </div>
+        </div>
+
+        <div class="quiz-step" data-step="3">
+          <button class="quiz-back" data-back>&larr; Retour</button>
+          <h2>Quel centre d'intérêt principal ?</h2>
+          <div class="quiz-options" data-question="interest">
+            <button class="quiz-option" data-value="high-tech">High-Tech</button>
+            <button class="quiz-option" data-value="bien-etre">Bien-être &amp; détente</button>
+            <button class="quiz-option" data-value="maison-deco">Maison &amp; déco</button>
+            <button class="quiz-option" data-value="cafe-the">Café / Thé</button>
+            <button class="quiz-option" data-value="gaming">Gaming</button>
+            <button class="quiz-option" data-value="aucune-idee">Aucune idée</button>
+          </div>
+        </div>
+
+        <div class="quiz-step" data-step="result">
+          <div class="quiz-result">
+            <h2 id="quiz-result-title">Notre recommandation</h2>
+            <p id="quiz-result-text" style="color:var(--color-text-muted);"></p>
+            <a class="btn btn-primary" id="quiz-result-cta" href="#">Voir les idées cadeaux</a>
+            <p style="margin-top:1rem;">
+              <button class="quiz-back" data-restart>Recommencer le questionnaire</button>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>© <span id="year"></span> Cadeau Malin.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const answers = { recipient: null, budget: null, interest: null };
+    let currentStep = 1;
+    const totalSteps = 3;
+
+    function showStep(step) {
+      document.querySelectorAll('.quiz-step').forEach(el => el.classList.remove('active'));
+      document.querySelector(`.quiz-step[data-step="${step}"]`).classList.add('active');
+      document.querySelectorAll('.quiz-progress .dot').forEach(dot => {
+        dot.classList.toggle('done', Number(dot.dataset.step) <= (typeof step === 'number' ? step : totalSteps));
+      });
+    }
+
+    document.querySelectorAll('.quiz-options').forEach(group => {
+      const question = group.dataset.question;
+      group.querySelectorAll('.quiz-option').forEach(btn => {
+        btn.addEventListener('click', () => {
+          answers[question] = btn.dataset.value;
+          group.querySelectorAll('.quiz-option').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          setTimeout(() => {
+            if (currentStep < totalSteps) {
+              currentStep++;
+              showStep(currentStep);
+            } else {
+              showResult();
+            }
+          }, 200);
+        });
+      });
+    });
+
+    document.querySelectorAll('[data-back]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (currentStep > 1) {
+          currentStep--;
+          showStep(currentStep);
+        }
+      });
+    });
+
+    document.querySelector('[data-restart]').addEventListener('click', () => {
+      answers.recipient = answers.budget = answers.interest = null;
+      document.querySelectorAll('.quiz-option').forEach(b => b.classList.remove('selected'));
+      currentStep = 1;
+      showStep(1);
+    });
+
+    const categories = {
+      'high-tech': { url: 'categories/high-tech.html', label: 'High-Tech' },
+      'bien-etre': { url: 'categories/bien-etre.html', label: 'Bien-être' },
+      'maison-deco': { url: 'categories/maison-deco.html', label: 'Maison & Déco' },
+      'enfants': { url: 'categories/enfants.html', label: 'Enfants' },
+      'cafe-the': { url: 'categories/cafe-the.html', label: 'Café & Thé' },
+      'gaming': { url: 'categories/gaming.html', label: 'Gaming' },
+    };
+
+    function showResult() {
+      let target = 'maison-deco';
+
+      if (answers.recipient === 'enfant') {
+        target = 'enfants';
+      } else if (answers.interest && answers.interest !== 'aucune-idee') {
+        target = answers.interest;
+      } else if (answers.budget === 'petit') {
+        target = 'maison-deco';
+      } else {
+        target = 'high-tech';
+      }
+
+      const cat = categories[target];
+      document.getElementById('quiz-result-text').textContent =
+        `D'après vos réponses, la catégorie « ${cat.label} » a le plus de chances de faire mouche.`;
+      document.getElementById('quiz-result-cta').href = cat.url;
+      document.getElementById('quiz-result-cta').textContent = `Voir les idées ${cat.label}`;
+      showStep('result');
+    }
+  </script>
+</body>
+</html>
