@@ -11,7 +11,7 @@ Construit :
 - `.claude/skills/` — 34 compétences réparties sur les 9 sous-agents (3 à 4 chacun, voir le détail dans chaque fichier `agents/*.md` → « Compétences associées »).
 - `agents/` — les 9 rôles de sous-agents (documents de rôle, pas des processus séparés), dont `design-agent.md` (création de site à partir d'une idée de business).
 - `site-template/` — gabarit de site statique (HTML/CSS sans dépendance) servant de base à toute création de site.
-- `settings/` — `agent.config.json`, `goals.json`, `integrations.json`, `approval-policy.json`, `content-calendar.json`, `growth-backlog.json`.
+- `settings/` — `agent-config.json`, `goals.json`, `integrations.json`, `approval-policy.json`, `content-calendar.json`, `growth-backlog.json`.
 - `commands/` — `daily-cmo-review.md` (revue marketing quotidienne), `create-website-from-idea.md` (site complet à partir d'une idée de business, puis boucle de croissance autonome).
 - `scripts/` — `supabase_query.js`, `supabase_upsert.js`, `github_create_branch.js`, `github_commit_changes.js`, `github_open_pr_or_push.js` (publication via `git`/SSH local, sans token GitHub), `fetch_ga4_report.js`, et le socle partagé `scripts/lib/cli.js`.
 - `.mcp.json` — déclaration des MCP Supabase et GitHub (à activer si ces serveurs sont installés sur le VPS ; sinon les scripts `scripts/*.js` servent de repli).

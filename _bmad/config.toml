@@ -12,6 +12,8 @@
 
 [core]
 document_output_language = "French"
+project_name = "pepite"
+output_folder = "_bmad-output"
 
 [modules.bmm]
 planning_artifacts = "{project-root}/{output_folder}/planning-artifacts"
