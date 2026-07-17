@@ -36,6 +36,8 @@ PROMPT='Tu es Pépite (voir CLAUDE.md). Exécute UNE itération complète du hea
 
 7. LIEN PRODUIT - Utilise un lien de redirection Amazon.fr réel (https://www.amazon.fr/s?k=...) sur la fiche produit ET dans larticle, sans jamais inventer un partenariat affilié qui nexiste pas.
 
+7ter. GOOGLE ANALYTICS - Obligatoire, jamais optionnelle. Google Analytics 4 (G-MNCJ1GVHY5) est branche sur tout le site. Chaque NOUVELLE page HTML creee doit inclure ce snippet dans le head, juste avant la fermeture de la balise head : script gtag.js charge depuis googletagmanager.com/gtag/js?id=G-MNCJ1GVHY5, puis initialisation de dataLayer et appel gtag(config, G-MNCJ1GVHY5). Verifier sa presence avant de committer une nouvelle page.
+
 7bis. DASHBOARD - site/dashboard.html est maintenant LIVE (connexion Google + requetes Supabase en direct cote client, pas de HTML statique a regenerer). Rien a faire ici sauf si la structure de la page est cassee.
 
 8. PUBLICATION - Committe et pousse directement sur main (git local, SSH déjà configuré) - un commit atomique et descriptif.
