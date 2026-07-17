@@ -37,6 +37,36 @@
     .live-badge { display: inline-block; padding: 0.15rem 0.55rem; border-radius: 999px; background: #e3f3e3; color: #1a7a1a; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; margin-left: 0.5rem; }
     .user-bar { display: flex; justify-content: flex-end; align-items: center; gap: 0.75rem; font-size: 0.85rem; color: var(--color-text-muted); padding: 0.75rem 0; }
     .user-bar button { background: none; border: none; color: var(--color-accent); cursor: pointer; font: inherit; padding: 0; }
+
+    .brain-widget {
+      display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;
+      background: var(--color-bg); border: 1px solid var(--color-border);
+      border-radius: var(--radius); padding: 1.5rem 1.75rem;
+    }
+    .brain-svg { width: 130px; height: 110px; color: var(--color-accent); flex-shrink: 0; }
+    .brain-outline { opacity: 0.3; }
+    .brain-line { stroke: var(--color-accent); stroke-width: 1.5; opacity: 0.35; }
+    .brain-node {
+      fill: var(--color-accent);
+      transform-box: fill-box; transform-origin: center;
+      animation: brainPulse 2.2s ease-in-out infinite;
+    }
+    @keyframes brainPulse {
+      0%, 100% { opacity: 0.3; transform: scale(0.75); }
+      50% { opacity: 1; transform: scale(1.35); }
+    }
+    .brain-info { flex: 1; min-width: 220px; }
+    .brain-status { font-weight: 700; font-size: 1.15rem; display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.6rem; }
+    .pulse-dot {
+      width: 0.7rem; height: 0.7rem; border-radius: 999px; background: #2e9e3f; flex-shrink: 0;
+      animation: pulseDot 1.6s infinite;
+    }
+    @keyframes pulseDot {
+      0% { box-shadow: 0 0 0 0 rgba(46,158,63,0.55); }
+      70% { box-shadow: 0 0 0 10px rgba(46,158,63,0); }
+      100% { box-shadow: 0 0 0 0 rgba(46,158,63,0); }
+    }
+    .brain-detail { color: var(--color-text-muted); font-size: 0.9rem; margin-top: 0.3rem; }
   </style>
 </head>
 <body>
@@ -91,6 +121,35 @@
         <span id="user-email"></span>
         <button id="sign-out">Se déconnecter</button>
       </div>
+
+      <section class="section">
+        <div class="wrap">
+          <div class="brain-widget">
+            <svg class="brain-svg" viewBox="0 0 120 100" aria-hidden="true">
+              <path class="brain-outline" d="M30 20c-12 0-20 10-20 22 0 8 4 14 10 18-2 4-2 9 1 13 4 6 12 8 18 5 3 6 10 10 17 9 8-1 14-8 14-16 6-2 10-8 10-15 0-6-3-11-8-14 2-9-3-18-12-21-6-2-13-1-18 3-4-3-8-4-12-4z" fill="none" stroke="currentColor" stroke-width="2"/>
+              <line class="brain-line" x1="35" y1="35" x2="55" y2="30"/>
+              <line class="brain-line" x1="55" y1="30" x2="75" y2="38"/>
+              <line class="brain-line" x1="75" y1="38" x2="85" y2="55"/>
+              <line class="brain-line" x1="35" y1="35" x2="45" y2="55"/>
+              <line class="brain-line" x1="45" y1="55" x2="65" y2="60"/>
+              <line class="brain-line" x1="65" y1="60" x2="85" y2="55"/>
+              <line class="brain-line" x1="45" y1="55" x2="55" y2="75"/>
+              <circle class="brain-node" cx="35" cy="35" r="4" style="animation-delay:0s"/>
+              <circle class="brain-node" cx="55" cy="30" r="4" style="animation-delay:0.3s"/>
+              <circle class="brain-node" cx="75" cy="38" r="4" style="animation-delay:0.6s"/>
+              <circle class="brain-node" cx="85" cy="55" r="4" style="animation-delay:0.9s"/>
+              <circle class="brain-node" cx="45" cy="55" r="4" style="animation-delay:1.2s"/>
+              <circle class="brain-node" cx="65" cy="60" r="4" style="animation-delay:1.5s"/>
+              <circle class="brain-node" cx="55" cy="75" r="4" style="animation-delay:1.8s"/>
+            </svg>
+            <div class="brain-info">
+              <div class="brain-status"><span class="pulse-dot"></span> Pépite tourne en continu, H24</div>
+              <div class="brain-detail" id="last-activity">Dernière activité réelle : —</div>
+              <div class="brain-detail" id="next-cycle">Prochain cycle d'analyse : —</div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section class="section">
         <div class="wrap">
@@ -199,7 +258,61 @@
       }
 
       updateNote.textContent = 'Données live, lues en direct depuis Supabase — dernière actualisation : ' + new Date().toLocaleString('fr-FR');
+
+      if (logs.data && logs.data.length) {
+        window.__lastActivityAt = logs.data[0].created_at;
+      }
+      updateBrainWidget();
     }
+
+    function relativeTime(dateStr) {
+      if (!dateStr) return '—';
+      const diffMs = Date.now() - new Date(dateStr).getTime();
+      const mins = Math.floor(diffMs / 60000);
+      if (mins < 1) return "à l'instant";
+      if (mins < 60) return `il y a ${mins} min`;
+      const hours = Math.floor(mins / 60);
+      if (hours < 24) return `il y a ${hours} h ${mins % 60} min`;
+      const days = Math.floor(hours / 24);
+      return `il y a ${days} j`;
+    }
+
+    // Heartbeat réel : cron "17 */3 * * *" (toutes les 3h à :17), heure du VPS (UTC)
+    function nextHeartbeatTime() {
+      const validHours = [0, 3, 6, 9, 12, 15, 18, 21];
+      const now = new Date();
+      const nowUTCHour = now.getUTCHours();
+      const nowUTCMin = now.getUTCMinutes();
+      let candidates = validHours.filter(h => h > nowUTCHour || (h === nowUTCHour && nowUTCMin < 17));
+      const next = new Date(now);
+      next.setUTCSeconds(0, 0);
+      next.setUTCMinutes(17);
+      if (candidates.length > 0) {
+        next.setUTCHours(candidates[0]);
+      } else {
+        next.setUTCDate(next.getUTCDate() + 1);
+        next.setUTCHours(0);
+      }
+      return next;
+    }
+
+    function formatCountdown(target) {
+      const diffMs = target.getTime() - Date.now();
+      if (diffMs <= 0) return 'imminent';
+      const totalMin = Math.floor(diffMs / 60000);
+      const h = Math.floor(totalMin / 60);
+      const m = totalMin % 60;
+      return h > 0 ? `dans ${h} h ${m} min` : `dans ${m} min`;
+    }
+
+    function updateBrainWidget() {
+      document.getElementById('last-activity').textContent =
+        'Dernière activité réelle : ' + relativeTime(window.__lastActivityAt);
+      document.getElementById('next-cycle').textContent =
+        "Prochain cycle d'analyse : " + formatCountdown(nextHeartbeatTime());
+    }
+
+    setInterval(updateBrainWidget, 30000);
 
     async function render() {
       const { data: { session } } = await supabase.auth.getSession();
