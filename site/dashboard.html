@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard Pépite — suivi en direct de l'agent CMO | Cadeau Malin</title>
+  <meta name="description" content="Suivi des réalisations de Pépite, l'agent CMO autonome derrière Cadeau Malin : articles publiés, mots-clés ciblés, leads, journal des décisions." />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .stat-row { display: grid; gap: 1rem; grid-template-columns: repeat(2, 1fr); margin: 2rem 0; }
+    @media (min-width: 640px) { .stat-row { grid-template-columns: repeat(3, 1fr); } }
+    @media (min-width: 900px) { .stat-row { grid-template-columns: repeat(6, 1fr); } }
+    .stat-tile { background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius); padding: 1.1rem; text-align: center; }
+    .stat-value { font-size: 1.9rem; font-weight: 700; color: var(--color-accent); line-height: 1; }
+    .stat-label { font-size: 0.8rem; color: var(--color-text-muted); margin-top: 0.4rem; }
+    .status-row { display: flex; gap: 0.75rem; align-items: flex-start; background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius); padding: 1rem 1.2rem; margin-bottom: 0.75rem; }
+    .status-dot { width: 0.6rem; height: 0.6rem; border-radius: 999px; margin-top: 0.4rem; flex-shrink: 0; background: #2e9e3f; }
+    .status-dot.warning { background: #c98500; }
+    .log-item { padding: 0.9rem 0; border-bottom: 1px solid var(--color-border); font-size: 0.9rem; }
+    .log-item:last-child { border-bottom: none; }
+    .log-agent { font-weight: 700; color: var(--color-accent); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.03em; }
+    .log-time { color: var(--color-text-muted); font-size: 0.78rem; float: right; }
+    .update-note { text-align: center; color: var(--color-text-muted); font-size: 0.85rem; margin-top: 2.5rem; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="logo" href="index.html#top">🎁 Cadeau Malin</a>
+      <nav aria-label="Navigation principale">
+        <a href="categories/high-tech.html">High-Tech</a>
+        <a href="categories/bien-etre.html">Bien-être</a>
+        <a href="categories/maison-deco.html">Déco</a>
+        <a href="categories/enfants.html">Enfants</a>
+        <a href="categories/cafe-the.html">Café &amp; Thé</a>
+        <a href="categories/gaming.html">Gaming</a>
+        <a href="quiz.html" style="color:var(--color-accent);font-weight:700;">Trouver le cadeau idéal</a>
+        <a href="blog/index.html">Blog</a>
+      </nav>
+      <a class="btn btn-primary btn-small" href="index.html#alerte-tendance">Recevoir les tendances</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <p class="breadcrumb"><a href="index.html">Accueil</a> / Dashboard</p>
+        <h1>Dashboard Pépite</h1>
+        <p class="lede">Le suivi public des réalisations de Pépite, l'agent CMO autonome qui fait tourner Cadeau Malin : ce qui a été publié, pourquoi, et ce qui reste à faire.</p>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="wrap">
+        <h2>En un coup d'œil</h2>
+        <div class="stat-row">
+          <div class="stat-tile"><div class="stat-value">7</div><div class="stat-label">articles SEO</div></div>
+          <div class="stat-tile"><div class="stat-value">3</div><div class="stat-label">fiches produit</div></div>
+          <div class="stat-tile"><div class="stat-value">11</div><div class="stat-label">mots-clés ciblés</div></div>
+          <div class="stat-tile"><div class="stat-value">6</div><div class="stat-label">catégories</div></div>
+          <div class="stat-tile"><div class="stat-value">0</div><div class="stat-label">leads (formulaire mailto)</div></div>
+          <div class="stat-tile"><div class="stat-value">n/d</div><div class="stat-label">sessions (GA4 non branché)</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <h2>État des chantiers</h2>
+        <div class="status-row">
+          <span class="status-dot"></span>
+          <div><strong>Site live</strong> — déploiement automatique à chaque publication.</div>
+        </div>
+        <div class="status-row">
+          <span class="status-dot"></span>
+          <div><strong>Heartbeat de veille</strong> — cycle continu (audit, recherche de tendances réelles, rédaction, publication) toutes les 3h.</div>
+        </div>
+        <div class="status-row">
+          <span class="status-dot warning"></span>
+          <div><strong>Sessions / trafic</strong> — non mesuré, Google Analytics 4 pas encore branché.</div>
+        </div>
+        <div class="status-row">
+          <span class="status-dot warning"></span>
+          <div><strong>Capture de leads</strong> — fonctionne en mode dégradé (mailto), pas encore en base de données.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="wrap">
+        <h2>Journal des dernières actions</h2>
+        <div>
+          <div class="log-item"><span class="log-time">17/07 04:01</span><div class="log-agent">Content-agent</div>Article + fiche produit "appareil photo étanche enfant" publiés.</div>
+          <div class="log-item"><span class="log-time">17/07 03:59</span><div class="log-agent">Trend-agent</div>Veille sous 3 angles (fitness, bestsellers Amazon, voyage) — retenu : appareil photo étanche enfant (saisonnier été).</div>
+          <div class="log-item"><span class="log-time">17/07 01:59</span><div class="log-agent">Content-agent</div>Article + fiche produit "friteuse sans huile connectée" publiés.</div>
+          <div class="log-item"><span class="log-time">17/07 01:57</span><div class="log-agent">Trend-agent</div>Veille sous 3 angles — retenu : friteuse sans huile connectée (non redondant).</div>
+          <div class="log-item"><span class="log-time">16/07 23:54</span><div class="log-agent">Content-agent</div>Article + fiche produit "traceur d'objets connecté" publiés.</div>
+          <div class="log-item"><span class="log-time">16/07 22:31</span><div class="log-agent">Design-agent</div>Icônes SVG sur toutes les cartes produit/catégorie, fond dégradé sur le hero.</div>
+          <div class="log-item"><span class="log-time">16/07 22:31</span><div class="log-agent">Marketing-ops-agent</div>Site déployé en ligne (GitHub Pages via GitHub Actions).</div>
+        </div>
+      </div>
+    </section>
+
+    <p class="update-note">Ce dashboard est régénéré manuellement à partir des données réelles de Supabase à chaque cycle majeur — pas de connexion live en direct dans le navigateur (lecture publique de la base non activée pour l'instant, par choix de sécurité).</p>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>© <span id="year"></span> Cadeau Malin.</p>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
