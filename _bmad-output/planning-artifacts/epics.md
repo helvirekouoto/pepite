@@ -1,5 +1,5 @@
 ---
-stepsCompleted: [step-01]
+stepsCompleted: [step-01, step-02]
 inputDocuments: ['_bmad-output/planning-artifacts/prds/prd-pepite-2026-07-17/prd.md', '_bmad-output/planning-artifacts/architecture/architecture-pepite-2026-07-17/ARCHITECTURE-SPINE.md']
 ---
 
@@ -48,21 +48,23 @@ Aucune — pas de document UX distinct pour ce projet (capability spec, mono-uti
 
 ### FR Coverage Map
 
-| FR | Couvert par (Epic.Story) |
-| --- | --- |
-| FR-1 | 1.1 |
-| FR-2 | 1.2 |
-| FR-3 | 1.2 |
-| FR-4 | 2.1 |
-| FR-5 | 2.2, 3.1 |
-| FR-6 | 3.1 |
-| FR-7 | 3.2 |
+FR-1: Epic 1 - Authentification propriétaire (Story 1.1)
+FR-2: Epic 1 - Inventaire du contenu (Story 1.2)
+FR-3: Epic 1 - Filtrage par type (Story 1.2)
+FR-4: Epic 2 - Édition texte brut + aperçu (Story 2.1)
+FR-5: Epic 2 - Publication via file d'attente (Story 2.2)
+FR-6: Epic 2 - Détection de conflit (Story 2.2)
+FR-7: Epic 2 - Journalisation distincte (Story 2.3)
 
 ## Epic List
 
-1. **Epic 1 — Accès et inventaire du contenu** (FR-1, FR-2, FR-3)
-2. **Epic 2 — Édition et aperçu** (FR-4, prépare FR-5)
-3. **Epic 3 — Publication fiable et traçable** (FR-5, FR-6, FR-7, AD-1 à AD-7)
+### Epic 1: Accès et inventaire du contenu
+Helvire peut se connecter en toute sécurité et voir tout le contenu existant du site — valeur autonome (répond à UJ-2 : "qu'est-ce qui existe déjà avant de demander à Pépite") même sans la capacité d'éditer.
+**FRs covered:** FR-1, FR-2, FR-3
+
+### Epic 2: Édition et publication fiable
+Helvire peut modifier une fiche existante et la publier réellement (commit+push), avec protection contre l'écrasement du travail de Pépite et traçabilité complète. Édition et publication sont un seul epic : éditer sans jamais pouvoir publier n'a aucune valeur utilisateur autonome, et les deux touchent le même composant (`admin.html`) — consolidées pour éviter le file-churn entre epics.
+**FRs covered:** FR-4, FR-5, FR-6, FR-7
 
 ## Epic 1: Accès et inventaire du contenu
 
@@ -108,9 +110,9 @@ So that je sache ce qui existe déjà avant de modifier ou de demander une actio
 **When** je sélectionne un filtre de type (catégorie / article / produit)
 **Then** seules les fiches de ce type restent affichées, sans rechargement complet de page (FR-3)
 
-## Epic 2: Édition et aperçu
+## Epic 2: Édition et publication fiable
 
-Permettre à Helvire de modifier le contenu d'une fiche existante en confiance, avec un aperçu fidèle avant toute publication.
+Permettre à Helvire de modifier le contenu d'une fiche existante en confiance, avec un aperçu fidèle, et de la publier réellement (commit+push) sans jamais écraser silencieusement le travail de Pépite, avec traçabilité complète.
 
 ### Story 2.1: Édition texte brut avec aperçu
 
@@ -132,11 +134,7 @@ So that je corrige un texte sans risquer de publier une erreur de mise en forme.
 **When** je n'ai pas encore cliqué "Publier"
 **Then** aucune modification n'est envoyée à Supabase ni publiée (FR-4)
 
-## Epic 3: Publication fiable et traçable
-
-Faire aboutir une édition à une publication réelle (commit + push), sans jamais écraser silencieusement le travail de Pépite, et avec une traçabilité complète.
-
-### Story 3.1: Publication via file d'attente avec détection de conflit
+### Story 2.2: Publication via file d'attente avec détection de conflit
 
 As a propriétaire authentifié,
 I want cliquer "Publier" et être protégé contre un écrasement silencieux,
@@ -160,7 +158,7 @@ So that je peux publier en confiance même si Pépite travaille en parallèle.
 **When** le relais détecte le mismatch
 **Then** il marque `status='conflict'`, n'écrit rien, et Helvire voit un avertissement explicite au prochain chargement du back-office (FR-6)
 
-### Story 3.2: Journalisation distincte pour l'audit de Pépite
+### Story 2.3: Journalisation distincte pour l'audit de Pépite
 
 As a système (Pépite, lors de son audit heartbeat),
 I want que les publications manuelles soient journalisées distinctement,
