@@ -18,15 +18,15 @@ LOG_FILE="$LOG_DIR/heartbeat-$(date +%Y%m%d-%H%M%S).log"
 
 PROMPT='Tu es Pépite (voir CLAUDE.md). Exécute UNE itération complète du heartbeat trend->contenu pour le site "Cadeau Malin" (site/). Ne saute aucune étape danalyse - une seule recherche superficielle ne suffit pas :
 
-1. AUDIT EXISTANT - Charge veille-tendances. Vérifie dans Supabase (content_assets et seo_opportunities, projet vbazcwxpqqnygairexcf) quels sujets/mots-clés/produits sont déjà couverts, pour ne rien répéter.
+1. AUDIT EXISTANT - Charge veille-tendances. Vérifie dans Supabase (content_assets, seo_opportunities ET growth_experiments, projet vbazcwxpqqnygairexcf) quels sujets/mots-clés/produits sont déjà couverts ET les opportunités notées "proposed" lors des cycles précédents, pour ne rien répéter et réévaluer si le moment est venu de les traiter.
 
-2. VEILLE TENDANCES REELLE - Charge veille-tendances. Fais PLUSIEURS requêtes WebSearch (au moins 3, sous des angles différents : nouveautés produits, viralité réseaux sociaux, saisonnalité/occasions à venir compte tenu de la date du jour) pour repérer des signaux de tendance cadeaux réels et récents. Ne jamais inventer une tendance ou un produit non trouvé par la recherche.
+2. VEILLE TENDANCES REELLE - Charge veille-tendances. Fais PLUSIEURS requêtes WebSearch (au moins 3, sous des angles différents de ceux déjà utilisés dans les cycles précédents : nouveautés produits, viralité réseaux sociaux, saisonnalité/occasions à venir compte tenu de la date du jour) pour repérer des signaux de tendance cadeaux réels et récents. Ne jamais inventer une tendance ou un produit non trouvé par la recherche.
 
 3. RECHERCHE MOTS-CLES ET INTENTION - Charge recherche-mots-cles-intention. Pour chaque tendance repérée à létape 2, évalue lintention de recherche probable (informationnelle vs transactionnelle) et le potentiel relatif, même en labsence doutil de volume dédié (raisonnement qualitatif explicite, pas une estimation inventée présentée comme un chiffre).
 
-4. DETECTION OPPORTUNITES - Charge detection-opportunites-contenu. Croise les tendances (étape 2), les mots-clés priorisés (étape 3) et lexistant (étape 1) pour ne retenir QUE les 1 à 2 opportunités les plus pertinentes et non redondantes.
+4. DETECTION OPPORTUNITES - Charge detection-opportunites-contenu. Croise les tendances (étape 2), les mots-clés priorisés (étape 3) et TOUT lexistant (étape 1, pas juste le dernier cycle) pour ne retenir QUE les 1 à 2 opportunités les plus pertinentes et non redondantes.
 
-5. ANTICIPATION - Charge anticipation-croissance. Ne te limite pas à ce qui est déjà tendance aujourdhui : réfléchis explicitement à ce qui va probablement être recherché dans les prochaines semaines (occasion saisonnière proche, rentrée, fêtes, événement prévisible) compte tenu de la date du jour, et priorise en conséquence si pertinent.
+5. ANTICIPATION - Charge anticipation-croissance. Ne te limite pas à ce qui est déjà tendance aujourdhui : réfléchis explicitement à ce qui va probablement être recherché dans les prochaines semaines. Si une opportunité structurelle plus large se présente (ex. nouvelle catégorie de site), ne la crée pas à la légère : journalise-la en "proposed" dans growth_experiments, SAUF si un cycle précédent l'a déjà proposée et que le contexte confirme clairement que c'est le bon moment - dans ce cas, tu peux la créer et l'expliquer clairement dans le résumé.
 
 6. REDACTION ARTICLE - Charge redaction-seo-longue-traine. Rédige un article SEO pour la meilleure opportunité retenue, dans site/blog/. Ajoute-le à site/blog/index.html.
 
@@ -40,7 +40,7 @@ PROMPT='Tu es Pépite (voir CLAUDE.md). Exécute UNE itération complète du hea
 
 9. JOURNALISATION COMPLETE - Journalise dans Supabase : le raisonnement (pas juste le résultat) dans growth_experiments (hypothèse = pourquoi cette tendance/ce timing, résultat attendu), les mots-clés dans seo_opportunities, larticle ET la fiche produit dans content_assets (deux lignes distinctes, type=seo_article et type=fiche_produit), un résumé dans agent_logs (agent=trend-agent pour lanalyse, agent=content-agent pour la rédaction).
 
-10. Si après une vraie analyse (étapes 1 à 5) rien de solide et non redondant ne ressort, ne publie rien et journalise un agent_logs "nothing_new" avec le raisonnement qui a mené à cette conclusion - mais larrêt prématuré après une seule recherche nest jamais acceptable.'
+10. Si après une vraie analyse (étapes 1 à 5) rien de solide et non redondant ne ressort, ne publie rien et journalise un agent_logs "nothing_new" avec le raisonnement qui a mené à cette conclusion - mais larrêt prématuré après une seule recherche nest jamais acceptable. Ne JAMAIS republier un sujet déjà traité, même reformulé.'
 
 claude -p "$PROMPT" --dangerously-skip-permissions >> "$LOG_FILE" 2>&1
 
