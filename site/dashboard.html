@@ -169,12 +169,26 @@
             <div class="stat-tile"><div class="stat-value">…</div><div class="stat-label">mots-clés ciblés</div></div>
             <div class="stat-tile"><div class="stat-value">7</div><div class="stat-label">catégories</div></div>
             <div class="stat-tile"><div class="stat-value">…</div><div class="stat-label">leads</div></div>
-            <div class="stat-tile"><div class="stat-value">n/d</div><div class="stat-label">sessions (GA4 tracke, API de reporting pas encore branchee ici)</div></div>
+            <div class="stat-tile"><div class="stat-value" id="ga-sessions">…</div><div class="stat-label">sessions (7j)</div></div>
           </div>
         </div>
       </section>
 
       <section class="section alt">
+        <div class="wrap">
+          <h2>Trafic — Google Analytics <span class="live-badge">Live</span></h2>
+          <div class="stat-row" style="grid-template-columns:repeat(3,1fr);">
+            <div class="stat-tile"><div class="stat-value" id="ga-sessions-2">…</div><div class="stat-label">sessions (7 derniers jours)</div></div>
+            <div class="stat-tile"><div class="stat-value" id="ga-users">…</div><div class="stat-label">utilisateurs (7 derniers jours)</div></div>
+            <div class="stat-tile"><div class="stat-value" id="ga-pageviews">…</div><div class="stat-label">pages vues (7 derniers jours)</div></div>
+          </div>
+          <h3 style="margin-top:2rem;font-size:1rem;">Pages les plus vues</h3>
+          <div id="ga-top-pages">Chargement…</div>
+          <p class="update-note" id="ga-note" style="margin-top:1rem;"></p>
+        </div>
+      </section>
+
+      <section class="section">
         <div class="wrap">
           <h2>Journal des dernières actions <span class="live-badge">Live</span></h2>
           <div id="log-list">Chargement…</div>
@@ -348,6 +362,57 @@
       loadLiveData().catch(err => {
         updateNote.textContent = 'Erreur de chargement des données live : ' + err.message;
       });
+      loadGA4Data().catch(err => {
+        document.getElementById('ga-note').textContent = 'Erreur GA4 : ' + err.message;
+      });
+    }
+
+    function ga4Number(report, index) {
+      try {
+        return report.rows[0].metricValues[index].value;
+      } catch {
+        return null;
+      }
+    }
+
+    async function loadGA4Data() {
+      const { data, error } = await supabase.functions.invoke('ga4-report');
+
+      if (error) {
+        document.getElementById('ga-note').textContent =
+          "GA4 pas encore branché côté serveur (secrets GA4_SERVICE_ACCOUNT_KEY / GA4_PROPERTY_ID manquants sur l'edge function).";
+        return;
+      }
+
+      if (data.error) {
+        document.getElementById('ga-note').textContent = 'GA4 : ' + data.error;
+        return;
+      }
+
+      const sessions = ga4Number(data.summary, 0) ?? '—';
+      const users = ga4Number(data.summary, 1) ?? '—';
+      const pageviews = ga4Number(data.summary, 2) ?? '—';
+
+      document.getElementById('ga-sessions').textContent = sessions;
+      document.getElementById('ga-sessions-2').textContent = sessions;
+      document.getElementById('ga-users').textContent = users;
+      document.getElementById('ga-pageviews').textContent = pageviews;
+
+      const topPagesEl = document.getElementById('ga-top-pages');
+      const rows = data.topPages && data.topPages.rows;
+      if (rows && rows.length) {
+        topPagesEl.innerHTML = rows.map(r => `
+          <div class="log-item">
+            <span class="log-time">${r.metricValues[0].value} vues</span>
+            <div>${r.dimensionValues[0].value}</div>
+          </div>
+        `).join('');
+      } else {
+        topPagesEl.textContent = 'Aucune donnée pour les 7 derniers jours.';
+      }
+
+      document.getElementById('ga-note').textContent =
+        'Données GA4 en direct (7 derniers jours) — dernière actualisation : ' + new Date().toLocaleString('fr-FR');
     }
 
     supabase.auth.onAuthStateChange(() => render());
