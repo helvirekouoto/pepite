@@ -20,11 +20,11 @@ PROMPT='Tu es Pépite (voir CLAUDE.md). Exécute UNE itération complète du hea
 
 1. AUDIT EXISTANT - Charge veille-tendances. Vérifie dans Supabase (content_assets, seo_opportunities ET growth_experiments, projet vbazcwxpqqnygairexcf) quels sujets/mots-clés/produits sont déjà couverts ET les opportunités notées "proposed" lors des cycles précédents, pour ne rien répéter et réévaluer si le moment est venu de les traiter.
 
-2. VEILLE TENDANCES REELLE - Charge veille-tendances. Fais PLUSIEURS requêtes WebSearch (au moins 3, sous des angles différents de ceux déjà utilisés dans les cycles précédents : nouveautés produits, viralité réseaux sociaux, saisonnalité/occasions à venir compte tenu de la date du jour) pour repérer des signaux de tendance cadeaux réels et récents. Ne jamais inventer une tendance ou un produit non trouvé par la recherche.
+2. VEILLE TENDANCES REELLE - Charge veille-tendances. Fais PLUSIEURS requêtes WebSearch (au moins 3, sous des angles différents de ceux déjà utilisés dans les cycles précédents : nouveautés produits, viralité réseaux sociaux, saisonnalité/occasions à venir compte tenu de la date du jour, OU exploration de niches cadeaux non encore couvertes) pour repérer des signaux de tendance cadeaux réels et récents. Ne jamais inventer une tendance ou un produit non trouvé par la recherche. Google Trends (API non officielle) est bloqué depuis ce VPS (429) - ne pas essayer, rester sur WebSearch qualitatif.
 
 3. RECHERCHE MOTS-CLES ET INTENTION - Charge recherche-mots-cles-intention. Pour chaque tendance repérée à létape 2, évalue lintention de recherche probable (informationnelle vs transactionnelle) et le potentiel relatif, même en labsence doutil de volume dédié (raisonnement qualitatif explicite, pas une estimation inventée présentée comme un chiffre).
 
-4. DETECTION OPPORTUNITES - Charge detection-opportunites-contenu. Croise les tendances (étape 2), les mots-clés priorisés (étape 3) et TOUT lexistant (étape 1, pas juste le dernier cycle) pour ne retenir QUE les 1 à 2 opportunités les plus pertinentes et non redondantes.
+4. DETECTION OPPORTUNITES - Charge detection-opportunites-contenu. Croise les tendances (étape 2), les mots-clés priorisés (étape 3) et TOUT lexistant (étape 1, pas juste le dernier cycle) pour ne retenir QUE les 1 à 2 opportunités les plus pertinentes et non redondantes. Une opportunité peut etre une nouvelle niche/categorie complete (au moins 3-4 produits concrets identifiables) - dans ce cas, crée la page categorie et ajoute-la a LA NAVIGATION DE TOUTES LES PAGES DU SITE (verifier site/*.html, site/categories/*.html, site/blog/*.html, site/produits/*.html), pas juste quelques unes.
 
 5. ANTICIPATION - Charge anticipation-croissance. Ne te limite pas à ce qui est déjà tendance aujourdhui : réfléchis explicitement à ce qui va probablement être recherché dans les prochaines semaines. Si une opportunité structurelle plus large se présente (ex. nouvelle catégorie de site), ne la crée pas à la légère : journalise-la en "proposed" dans growth_experiments, SAUF si un cycle précédent a déjà propose cette meme opportunite et que le contexte confirme clairement que cest le bon moment - dans ce cas, tu peux la créer et expliquer clairement pourquoi dans le résumé.
 
@@ -35,6 +35,8 @@ PROMPT='Tu es Pépite (voir CLAUDE.md). Exécute UNE itération complète du hea
 6ter. ICONE VISUELLE - Obligatoire, jamais optionnelle. Chaque nouvelle carte produit (index.html, catégorie, fiche produit) doit avoir une icône SVG en ligne cohérente avec le reste du site : class="product-icon", viewBox="0 0 24 24", fill="none", stroke="currentColor", stroke-width="1.5", inspirée du produit (regarde les icônes déjà présentes dans site/index.html et site/categories/*.html comme modèle de style). Ne jamais utiliser une image externe ou hotlinkée (aucune dépendance externe, aucun risque de lien mort ou de droit dauteur) - uniquement du SVG dessiné à la main, simple et minimal.
 
 7. LIEN PRODUIT - Utilise un lien de redirection Amazon.fr réel (https://www.amazon.fr/s?k=...) sur la fiche produit ET dans larticle, sans jamais inventer un partenariat affilié qui nexiste pas.
+
+7bis. DASHBOARD - Apres publication, regenere site/dashboard.html avec les chiffres reels a jour (compte les articles/fiches/mots-cles/categories reels dans Supabase, ajoute lentree de ce cycle en haut du journal visible sur la page, garde 10 entrees maximum).
 
 8. PUBLICATION - Committe et pousse directement sur main (git local, SSH déjà configuré) - un commit atomique et descriptif.
 
