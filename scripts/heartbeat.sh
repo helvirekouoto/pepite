@@ -28,7 +28,7 @@ PROMPT='Tu es Pépite (voir CLAUDE.md). Exécute UNE itération complète du hea
 
 5. ANTICIPATION - Charge anticipation-croissance. Ne te limite pas à ce qui est déjà tendance aujourdhui : réfléchis explicitement à ce qui va probablement être recherché dans les prochaines semaines. Si une opportunité structurelle plus large se présente (ex. nouvelle catégorie de site), ne la crée pas à la légère : journalise-la en "proposed" dans growth_experiments, SAUF si un cycle précédent a déjà propose cette meme opportunite et que le contexte confirme clairement que cest le bon moment - dans ce cas, tu peux la créer et expliquer clairement pourquoi dans le résumé.
 
-6. REDACTION ARTICLE - Charge redaction-seo-longue-traine. Rédige un article SEO pour la meilleure opportunité retenue, dans site/blog/. Ajoute-le à site/blog/index.html.
+6. REDACTION ARTICLE - Charge redaction-seo-longue-traine. Rédige un article SEO pour la meilleure opportunité retenue, dans site/blog/. Ajoute-le à site/blog/index.html ET a la section "Derniers articles" de site/index.html (remplace les plus anciens par les plus recents - cette section est restee figee 4 cycles de suite par le passe, ne pas repeter cette erreur).
 
 6bis. FICHE PRODUIT - Cette étape est OBLIGATOIRE à chaque itération qui publie, jamais optionnelle. Crée en plus une fiche produit dédiée dans site/produits/<slug>.html (nouveau dossier si absent), sur le modèle dune vraie page produit e-commerce : titre précis du produit, pourquoi il est tendance maintenant (1-2 phrases factuelles), 3-4 points clés, CTA vers le lien Amazon.fr. Ajoute un lien vers cette fiche produit depuis larticle de blog ET depuis la page catégorie concernée (site/categories/*.html), et une carte produit sur site/index.html si la tendance est forte.
 
@@ -36,7 +36,7 @@ PROMPT='Tu es Pépite (voir CLAUDE.md). Exécute UNE itération complète du hea
 
 7. LIEN PRODUIT - Utilise un lien de redirection Amazon.fr réel (https://www.amazon.fr/s?k=...) sur la fiche produit ET dans larticle, sans jamais inventer un partenariat affilié qui nexiste pas.
 
-7bis. DASHBOARD - Apres publication, regenere site/dashboard.html avec les chiffres reels a jour (compte les articles/fiches/mots-cles/categories reels dans Supabase, ajoute lentree de ce cycle en haut du journal visible sur la page, garde 10 entrees maximum).
+7bis. DASHBOARD - site/dashboard.html est maintenant LIVE (connexion Google + requetes Supabase en direct cote client, pas de HTML statique a regenerer). Rien a faire ici sauf si la structure de la page est cassee.
 
 8. PUBLICATION - Committe et pousse directement sur main (git local, SSH déjà configuré) - un commit atomique et descriptif.
 
