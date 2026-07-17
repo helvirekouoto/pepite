@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dashboard Pépite — suivi en direct de l'agent CMO | Cadeau Malin</title>
-  <meta name="description" content="Suivi des réalisations de Pépite, l'agent CMO autonome derrière Cadeau Malin : articles publiés, mots-clés ciblés, leads, journal des décisions." />
+  <meta name="description" content="Suivi en direct des réalisations de Pépite, l'agent CMO autonome derrière Cadeau Malin. Accès réservé au propriétaire du site." />
+  <meta name="robots" content="noindex" />
   <link rel="stylesheet" href="styles.css" />
   <style>
     .stat-row { display: grid; gap: 1rem; grid-template-columns: repeat(2, 1fr); margin: 2rem 0; }
@@ -18,9 +19,24 @@
     .status-dot.warning { background: #c98500; }
     .log-item { padding: 0.9rem 0; border-bottom: 1px solid var(--color-border); font-size: 0.9rem; }
     .log-item:last-child { border-bottom: none; }
-    .log-agent { font-weight: 700; color: var(--color-accent); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.03em; }
+    .log-agent { font-weight: 700; color: var(--color-accent); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.02em; }
     .log-time { color: var(--color-text-muted); font-size: 0.78rem; float: right; }
     .update-note { text-align: center; color: var(--color-text-muted); font-size: 0.85rem; margin-top: 2.5rem; }
+
+    #gate { text-align: center; padding: 4rem 1.5rem; }
+    #gate p { color: var(--color-text-muted); max-width: 420px; margin: 0.75rem auto 1.5rem; }
+    .google-btn {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      padding: 0.75rem 1.5rem; border-radius: var(--radius);
+      border: 1px solid var(--color-border); background: var(--color-bg);
+      color: var(--color-text); font: inherit; font-weight: 600; cursor: pointer;
+    }
+    .google-btn:hover { border-color: var(--color-accent); }
+    #dashboard-content { display: none; }
+    #denied { display: none; text-align: center; padding: 3rem 1.5rem; color: var(--color-text-muted); }
+    .live-badge { display: inline-block; padding: 0.15rem 0.55rem; border-radius: 999px; background: #e3f3e3; color: #1a7a1a; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; margin-left: 0.5rem; }
+    .user-bar { display: flex; justify-content: flex-end; align-items: center; gap: 0.75rem; font-size: 0.85rem; color: var(--color-text-muted); padding: 0.75rem 0; }
+    .user-bar button { background: none; border: none; color: var(--color-accent); cursor: pointer; font: inherit; padding: 0; }
   </style>
 </head>
 <body>
@@ -46,62 +62,65 @@
       <div class="wrap">
         <p class="breadcrumb"><a href="index.html">Accueil</a> / Dashboard</p>
         <h1>Dashboard Pépite</h1>
-        <p class="lede">Le suivi public des réalisations de Pépite, l'agent CMO autonome qui fait tourner Cadeau Malin : ce qui a été publié, pourquoi, et ce qui reste à faire.</p>
+        <p class="lede">Suivi des réalisations de Pépite, l'agent CMO autonome qui fait tourner Cadeau Malin. Accès réservé.</p>
       </div>
     </section>
 
-    <section class="section alt">
+    <section id="gate" class="section alt">
       <div class="wrap">
-        <h2>En un coup d'œil</h2>
-        <div class="stat-row">
-          <div class="stat-tile"><div class="stat-value">7</div><div class="stat-label">articles SEO</div></div>
-          <div class="stat-tile"><div class="stat-value">3</div><div class="stat-label">fiches produit</div></div>
-          <div class="stat-tile"><div class="stat-value">11</div><div class="stat-label">mots-clés ciblés</div></div>
-          <div class="stat-tile"><div class="stat-value">6</div><div class="stat-label">catégories</div></div>
-          <div class="stat-tile"><div class="stat-value">0</div><div class="stat-label">leads (formulaire mailto)</div></div>
-          <div class="stat-tile"><div class="stat-value">n/d</div><div class="stat-label">sessions (GA4 non branché)</div></div>
-        </div>
+        <h2>Connexion requise</h2>
+        <p>Ce dashboard contient des données internes (journal des décisions, mots-clés, expérimentations). Connecte-toi avec le compte Google propriétaire du site pour y accéder.</p>
+        <button class="google-btn" id="google-signin">
+          <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.8 2.72v2.26h2.92c1.7-1.57 2.68-3.88 2.68-6.62z"/><path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.92-2.26c-.81.54-1.84.86-3.04.86-2.34 0-4.32-1.58-5.03-3.7H.98v2.33A9 9 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.97 10.72A5.4 5.4 0 0 1 3.68 9c0-.6.1-1.18.29-1.72V4.95H.98A9 9 0 0 0 0 9c0 1.45.35 2.83.98 4.05z"/><path fill="#EA4335" d="M9 3.58c1.32 0 2.51.45 3.44 1.35l2.58-2.58C13.46.89 11.43 0 9 0A9 9 0 0 0 .98 4.95l2.99 2.33C4.68 5.16 6.66 3.58 9 3.58z"/></svg>
+          Se connecter avec Google
+        </button>
       </div>
     </section>
 
-    <section class="section">
+    <section id="denied" class="section alt">
       <div class="wrap">
-        <h2>État des chantiers</h2>
-        <div class="status-row">
-          <span class="status-dot"></span>
-          <div><strong>Site live</strong> — déploiement automatique à chaque publication.</div>
-        </div>
-        <div class="status-row">
-          <span class="status-dot"></span>
-          <div><strong>Heartbeat de veille</strong> — cycle continu (audit, recherche de tendances réelles, rédaction, publication) toutes les 3h.</div>
-        </div>
-        <div class="status-row">
-          <span class="status-dot warning"></span>
-          <div><strong>Sessions / trafic</strong> — non mesuré, Google Analytics 4 pas encore branché.</div>
-        </div>
-        <div class="status-row">
-          <span class="status-dot warning"></span>
-          <div><strong>Capture de leads</strong> — fonctionne en mode dégradé (mailto), pas encore en base de données.</div>
-        </div>
+        <h2>Accès refusé</h2>
+        <p id="denied-text"></p>
+        <button class="google-btn" id="sign-out-btn">Se déconnecter</button>
       </div>
     </section>
 
-    <section class="section alt">
-      <div class="wrap">
-        <h2>Journal des dernières actions</h2>
-        <div>
-          <div class="log-item"><span class="log-time">17/07 04:01</span><div class="log-agent">Content-agent</div>Article + fiche produit "appareil photo étanche enfant" publiés.</div>
-          <div class="log-item"><span class="log-time">17/07 03:59</span><div class="log-agent">Trend-agent</div>Veille sous 3 angles (fitness, bestsellers Amazon, voyage) — retenu : appareil photo étanche enfant (saisonnier été).</div>
-          <div class="log-item"><span class="log-time">17/07 01:59</span><div class="log-agent">Content-agent</div>Article + fiche produit "friteuse sans huile connectée" publiés.</div>
-          <div class="log-item"><span class="log-time">17/07 01:57</span><div class="log-agent">Trend-agent</div>Veille sous 3 angles — retenu : friteuse sans huile connectée (non redondant).</div>
-          <div class="log-item"><span class="log-time">16/07 23:54</span><div class="log-agent">Content-agent</div>Article + fiche produit "traceur d'objets connecté" publiés.</div>
-          <div class="log-item"><span class="log-time">16/07 22:31</span><div class="log-agent">Design-agent</div>Icônes SVG sur toutes les cartes produit/catégorie, fond dégradé sur le hero.</div>
-          <div class="log-item"><span class="log-time">16/07 22:31</span><div class="log-agent">Marketing-ops-agent</div>Site déployé en ligne (GitHub Pages via GitHub Actions).</div>
-        </div>
+    <div id="dashboard-content">
+      <div class="wrap user-bar">
+        <span id="user-email"></span>
+        <button id="sign-out">Se déconnecter</button>
       </div>
-    </section>
 
-    <p class="update-note">Ce dashboard est régénéré manuellement à partir des données réelles de Supabase à chaque cycle majeur — pas de connexion live en direct dans le navigateur (lecture publique de la base non activée pour l'instant, par choix de sécurité).</p>
+      <section class="section">
+        <div class="wrap">
+          <h2>En un coup d'œil <span class="live-badge">Live</span></h2>
+          <div class="stat-row" id="stat-row">
+            <div class="stat-tile"><div class="stat-value">…</div><div class="stat-label">articles SEO</div></div>
+            <div class="stat-tile"><div class="stat-value">…</div><div class="stat-label">fiches produit</div></div>
+            <div class="stat-tile"><div class="stat-value">…</div><div class="stat-label">mots-clés ciblés</div></div>
+            <div class="stat-tile"><div class="stat-value">6</div><div class="stat-label">catégories</div></div>
+            <div class="stat-tile"><div class="stat-value">…</div><div class="stat-label">leads</div></div>
+            <div class="stat-tile"><div class="stat-value">n/d</div><div class="stat-label">sessions (GA4 non branché)</div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section alt">
+        <div class="wrap">
+          <h2>Journal des dernières actions <span class="live-badge">Live</span></h2>
+          <div id="log-list">Chargement…</div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="wrap">
+          <h2>Dernières expérimentations (growth_experiments)</h2>
+          <div id="experiments-list">Chargement…</div>
+        </div>
+      </section>
+    </div>
+
+    <p class="update-note" id="update-note"></p>
   </main>
 
   <footer class="site-footer">
@@ -110,6 +129,106 @@
     </div>
   </footer>
 
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const SUPABASE_URL = 'https://vbazcwxpqqnygairexcf.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_P942fwvF-4-X0mk47tBmlg_eROrL8JG';
+    const OWNER_EMAIL = 'helvire.kouoto.pro@gmail.com';
+
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const gate = document.getElementById('gate');
+    const denied = document.getElementById('denied');
+    const content = document.getElementById('dashboard-content');
+    const updateNote = document.getElementById('update-note');
+
+    document.getElementById('google-signin').addEventListener('click', async () => {
+      await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: { redirectTo: window.location.href },
+      });
+    });
+
+    document.getElementById('sign-out').addEventListener('click', () => supabase.auth.signOut().then(() => location.reload()));
+    document.getElementById('sign-out-btn').addEventListener('click', () => supabase.auth.signOut().then(() => location.reload()));
+
+    async function loadLiveData() {
+      const [articles, fiches, keywords, leads, logs, experiments] = await Promise.all([
+        supabase.from('content_assets').select('id', { count: 'exact', head: true }).eq('type', 'seo_article'),
+        supabase.from('content_assets').select('id', { count: 'exact', head: true }).eq('type', 'fiche_produit'),
+        supabase.from('seo_opportunities').select('id', { count: 'exact', head: true }),
+        supabase.from('leads').select('id', { count: 'exact', head: true }),
+        supabase.from('agent_logs').select('*').order('created_at', { ascending: false }).limit(10),
+        supabase.from('growth_experiments').select('*').order('created_at', { ascending: false }).limit(8),
+      ]);
+
+      const tiles = document.querySelectorAll('#stat-row .stat-value');
+      tiles[0].textContent = articles.count ?? '—';
+      tiles[1].textContent = fiches.count ?? '—';
+      tiles[2].textContent = keywords.count ?? '—';
+      tiles[4].textContent = leads.count ?? '—';
+
+      const logList = document.getElementById('log-list');
+      if (logs.data && logs.data.length) {
+        logList.innerHTML = logs.data.map(l => `
+          <div class="log-item">
+            <span class="log-time">${new Date(l.created_at).toLocaleString('fr-FR')}</span>
+            <div class="log-agent">${l.agent}</div>
+            ${l.summary || ''}
+          </div>
+        `).join('');
+      } else {
+        logList.textContent = 'Aucune donnée.';
+      }
+
+      const expList = document.getElementById('experiments-list');
+      if (experiments.data && experiments.data.length) {
+        expList.innerHTML = experiments.data.map(e => `
+          <div class="log-item">
+            <span class="log-time">${e.status}</span>
+            <div class="log-agent">${e.title}</div>
+            ${e.hypothesis ? e.hypothesis.slice(0, 220) + (e.hypothesis.length > 220 ? '…' : '') : ''}
+          </div>
+        `).join('');
+      } else {
+        expList.textContent = 'Aucune donnée.';
+      }
+
+      updateNote.textContent = 'Données live, lues en direct depuis Supabase — dernière actualisation : ' + new Date().toLocaleString('fr-FR');
+    }
+
+    async function render() {
+      const { data: { session } } = await supabase.auth.getSession();
+
+      gate.style.display = 'none';
+      denied.style.display = 'none';
+      content.style.display = 'none';
+
+      if (!session) {
+        gate.style.display = 'block';
+        return;
+      }
+
+      const email = session.user.email;
+      if (email !== OWNER_EMAIL) {
+        document.getElementById('denied-text').textContent =
+          `Le compte ${email} n'est pas autorisé à consulter ce dashboard.`;
+        denied.style.display = 'block';
+        return;
+      }
+
+      document.getElementById('user-email').textContent = email;
+      content.style.display = 'block';
+      loadLiveData().catch(err => {
+        updateNote.textContent = 'Erreur de chargement des données live : ' + err.message;
+      });
+    }
+
+    supabase.auth.onAuthStateChange(() => render());
+    render();
+  </script>
 </body>
 </html>
